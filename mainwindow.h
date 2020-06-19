@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
+#include <QDir>
+#include <QDebug>
+
+#include "comp.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,7 +20,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_selectFloder1_clicked();
+
+    void on_selectFloder2_clicked();
+
+    void on_compButton_clicked();
+
 private:
     Ui::MainWindow *ui;
+    Comp cmp;
 };
 #endif // MAINWINDOW_H
