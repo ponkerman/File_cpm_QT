@@ -15,6 +15,7 @@ void Comp::setFold1(QDir fold)
 
    for(auto it : list){
        fold1.push_back(new QFile(path + '/' + it));
+       fold1.back()->open(QIODevice::ReadOnly);
    }
 }
 
@@ -27,28 +28,35 @@ void Comp::setFold2(QDir fold)
 
     for(auto it : list){
         fold2.push_back(new QFile(path + '/' + it));
+        fold2.back()->open(QIODevice::ReadOnly);
     }
 }
 
 QStringList Comp::compare()
 {
+    auto start = std::chrono::steady_clock::now();
     qDebug() << "comp started";
     QStringList list;
-    QCryptographicHash hash1(QCryptographicHash::Sha1);
-    QCryptographicHash hash2(QCryptographicHash::Sha1);
 
     qDebug() << "for start";
+    QByteArray buf1;
+    QByteArray buf2;
+
     for(auto i : fold1){
-        hash1.addData(i->readAll());
-        QByteArray sig1 = hash1.result();
+        buf1 = i->readAll();
+        i->seek(0);
+        qDebug() << i->fileName();
         for(auto j : fold2){
-            hash2.addData(j->readAll());
-            QByteArray sig2 = hash2.result();
-            if(sig1 == sig2){
-                list.push_back(i->fileName() + '\t' + j->fileName());
+            buf2 = j->readAll();
+            j->seek(0);
+            if(buf1 == buf2){
+                list.push_back(i->fileName() + '\t' + j->fileName() + '\t' + buf1 + '\t' + buf2);
             }
         }
     }
+    auto end = std::chrono::steady_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    qDebug() << elapsed.count();
     qDebug() << "for finish";
 
     return list;

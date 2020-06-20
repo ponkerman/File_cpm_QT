@@ -7,6 +7,10 @@
 #include <QFileInfoList>
 #include <QFileInfo>
 #include <QCryptographicHash>
+#include <io.h>
+#include <QByteArray>
+#include <QThread>
+#include <thread>
 
 #include <QDebug>
 

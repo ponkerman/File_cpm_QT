@@ -5,6 +5,8 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QDebug>
+#include <QThread>
+#include <thread>
 
 #include "comp.h"
 

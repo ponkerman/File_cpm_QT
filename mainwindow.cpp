@@ -17,7 +17,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_selectFloder1_clicked()
 {
     //TODO: remove defauld dir
-    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory", "D:/Projects/Open_media_TZ/test"));
+    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory", "F:/Projects/Open_media_TZ/test"));
     ui->fold1Label->setText(dir.path());
     cmp.setFold1(dir);
 }
@@ -25,7 +25,7 @@ void MainWindow::on_selectFloder1_clicked()
 void MainWindow::on_selectFloder2_clicked()
 {
     //TODO: remove defauld dir
-    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory", "D:/Projects/Open_media_TZ/test"));
+    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory", "F:/Projects/Open_media_TZ/test"));
     ui->fold2Label->setText(dir.path());
     cmp.setFold2(dir);
 }
@@ -33,12 +33,9 @@ void MainWindow::on_selectFloder2_clicked()
 void MainWindow::on_compButton_clicked()
 {
     qDebug() << "but pressed";
-
     QStringList list = cmp.compare();
     qDebug() << "comp finished";
-    list.push_back("aaaaaaa bbbbbbbbbb");
-    list.push_back("ccccccc dddddddddd jjjjjjjjjjjjj");
-    list.push_back("qqqqq asdasd1 gfjf 999999999999999999");
+    list.push_back("end.");
     for(auto it : list)
         ui->filesList->addItem(it);
 }
