@@ -32,10 +32,12 @@ void MainWindow::on_selectFloder2_clicked()
 
 void MainWindow::on_compButton_clicked()
 {
-    qDebug() << "but pressed";
+
+    ui->filesList->clear();
     QStringList list = cmp.compare();
-    qDebug() << "comp finished";
+
     list.push_back("end.");
     for(auto it : list)
         ui->filesList->addItem(it);
+
 }

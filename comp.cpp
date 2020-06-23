@@ -34,18 +34,14 @@ void Comp::setFold2(QDir fold)
 
 QStringList Comp::compare()
 {
-    auto start = std::chrono::steady_clock::now();
-    qDebug() << "comp started";
     QStringList list;
-
-    qDebug() << "for start";
+    auto start = std::chrono::steady_clock::now();
+    ///////////////////////////////////////////////////////////////////////////////
     QByteArray buf1;
     QByteArray buf2;
-
     for(auto i : fold1){
         buf1 = i->readAll();
         i->seek(0);
-        qDebug() << i->fileName();
         for(auto j : fold2){
             buf2 = j->readAll();
             j->seek(0);
@@ -54,10 +50,10 @@ QStringList Comp::compare()
             }
         }
     }
+    //////////////////////////////////////////////////////////////////////////////
     auto end = std::chrono::steady_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-    qDebug() << elapsed.count();
-    qDebug() << "for finish";
+    qDebug() << "time elapsed: "<< elapsed.count();
 
     return list;
 
