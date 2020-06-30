@@ -2,11 +2,14 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1042</width>
+    <width>1000</width>
     <height>600</height>
    </rect>
   </property>
@@ -17,17 +20,20 @@
    <widget class="QListWidget" name="filesList">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>50</x>
       <y>160</y>
-      <width>961</width>
-      <height>391</height>
+      <width>900</width>
+      <height>400</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="compButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>50</x>
       <y>130</y>
       <width>75</width>
       <height>23</height>
@@ -40,7 +46,7 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>50</x>
       <y>40</y>
       <width>751</width>
       <height>33</height>
@@ -97,8 +103,8 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>80</y>
+      <x>50</x>
+      <y>90</y>
       <width>751</width>
       <height>33</height>
      </rect>

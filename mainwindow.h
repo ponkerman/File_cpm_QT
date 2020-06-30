@@ -5,8 +5,7 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QDebug>
-#include <QThread>
-#include <thread>
+#include <QMessageBox>
 
 #include "comp.h"
 
@@ -31,6 +30,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Comp cmp;
+    Comp* cmp;
 };
 #endif // MAINWINDOW_H

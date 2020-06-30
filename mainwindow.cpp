@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    cmp = new Comp();
 }
 
 MainWindow::~MainWindow()
@@ -16,28 +17,46 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_selectFloder1_clicked()
 {
-    //TODO: remove defauld dir
-    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory", "F:/Projects/Open_media_TZ/test"));
+    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory"));
+    if(dir.isEmpty(QDir::Files)) {
+        QMessageBox msg;
+        msg.setWindowTitle("ошибка");
+        msg.setText("в папке #1 нет файлов");
+        msg.exec();
+        return;
+    }
     ui->fold1Label->setText(dir.path());
-    cmp.setFold1(dir);
+    cmp->setFold1(dir);
+    if(cmp->isReady())
+        ui->compButton->setDisabled(0);
 }
 
 void MainWindow::on_selectFloder2_clicked()
 {
-    //TODO: remove defauld dir
-    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory", "F:/Projects/Open_media_TZ/test"));
+    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory"));
+    if(dir.isEmpty(QDir::Files)) {
+        QMessageBox msg;
+        msg.setWindowTitle("ошибка");
+        msg.setText("в папке #2 нет файлов");
+        msg.exec();
+        return;
+    }
     ui->fold2Label->setText(dir.path());
-    cmp.setFold2(dir);
+    cmp->setFold2(dir);
+    if(cmp->isReady())
+        ui->compButton->setDisabled(0);
 }
 
 void MainWindow::on_compButton_clicked()
 {
-
     ui->filesList->clear();
-    QStringList list = cmp.compare();
+    QStringList list = cmp->compare();
 
-    list.push_back("end.");
     for(auto it : list)
         ui->filesList->addItem(it);
-
+    ui->compButton->setDisabled(1);
 }
+
+
+
+

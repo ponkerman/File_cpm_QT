@@ -2,16 +2,11 @@
 #define COMP_H
 
 #include <QFile>
-#include <QString>
+//#include <QString>
 #include <QDir>
-#include <QFileInfoList>
-#include <QFileInfo>
-#include <QCryptographicHash>
+//#include <QFileInfoList>
+//#include <QFileInfo>
 #include <io.h>
-#include <QByteArray>
-#include <QThread>
-#include <thread>
-
 #include <QDebug>
 
 class Comp
@@ -19,10 +14,14 @@ class Comp
 private:
     std::vector<QFile *> fold1;
     std::vector<QFile *> fold2;
+    void setFold(const QDir&, std::vector<QFile*> &);
 public:
     Comp();
-    void setFold1(QDir);
-    void setFold2(QDir);
+    ~Comp();
+    bool isReady();
+    void setFold1(const QDir&);
+    void setFold2(const QDir&);
+
     QStringList compare();
 };
 
