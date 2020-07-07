@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QDebug>
 #include <QMessageBox>
+#include <QThread>
 
 #include "comp.h"
 
@@ -31,5 +32,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Comp* cmp;
+    void update(const QString&);
+
 };
 #endif // MAINWINDOW_H

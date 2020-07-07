@@ -8,9 +8,15 @@
 //#include <QFileInfo>
 #include <io.h>
 #include <QDebug>
+#include <QObject>
 
-class Comp
+class Comp : public QObject
 {
+    Q_OBJECT
+public slots:
+    void compare();
+signals:
+    void send(const QString& str);
 private:
     std::vector<QFile *> fold1;
     std::vector<QFile *> fold2;
@@ -18,11 +24,9 @@ private:
 public:
     Comp();
     ~Comp();
-    bool isReady();
     void setFold1(const QDir&);
     void setFold2(const QDir&);
-
-    QStringList compare();
+    bool isReady();
 };
 
 #endif // COMP_H

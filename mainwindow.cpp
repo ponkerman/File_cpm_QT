@@ -17,7 +17,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_selectFloder1_clicked()
 {
-    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory"));
+    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory", "", QFileDialog::ShowDirsOnly));
     if(dir.isEmpty(QDir::Files)) {
         QMessageBox msg;
         msg.setWindowTitle("ошибка");
@@ -25,6 +25,7 @@ void MainWindow::on_selectFloder1_clicked()
         msg.exec();
         return;
     }
+
     ui->fold1Label->setText(dir.path());
     cmp->setFold1(dir);
     if(cmp->isReady())
@@ -33,7 +34,7 @@ void MainWindow::on_selectFloder1_clicked()
 
 void MainWindow::on_selectFloder2_clicked()
 {
-    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory"));
+    QDir dir(QFileDialog::getExistingDirectory(this, "choose directory", "", QFileDialog::ShowDirsOnly));
     if(dir.isEmpty(QDir::Files)) {
         QMessageBox msg;
         msg.setWindowTitle("ошибка");
@@ -50,12 +51,28 @@ void MainWindow::on_selectFloder2_clicked()
 void MainWindow::on_compButton_clicked()
 {
     ui->filesList->clear();
-    QStringList list = cmp->compare();
+    disconnect(cmp, &Comp::send, this, &MainWindow::update);
 
-    for(auto it : list)
-        ui->filesList->addItem(it);
+    QThread *myThread = new QThread;
+
+    if (cmp->thread() == QThread::currentThread())
+        cmp->moveToThread(myThread);
+
+    connect(cmp, &Comp::send, this, &MainWindow::update);
+    connect(myThread, &QThread::started, cmp, &Comp::compare);
+    connect(myThread, &QThread::finished, cmp, &QObject::deleteLater);
+
+    myThread->start();
+
     ui->compButton->setDisabled(1);
 }
+
+void MainWindow::update(const QString& str)
+{
+    ui->filesList->addItem(str);
+}
+
+
 
 
 
